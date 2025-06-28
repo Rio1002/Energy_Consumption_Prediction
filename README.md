@@ -1,6 +1,6 @@
 <h1 align="center">⚡️ Energy Consumption Prediction</h1>
 <p align="center">
-  <img src="https://github.com/Rio1002/Energy_Consumption_Prediction/blob/main/banner.png?raw=true" alt="Banner" width="100%"/>
+  <img src="https://github.com/Rio1002/Energy_Consumption_Prediction/blob/main/banner.png?raw=true" alt="Banner" width="50%"/>
 </p>
 
 <p align="center">
