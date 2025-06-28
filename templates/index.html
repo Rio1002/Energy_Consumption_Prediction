@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+  <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700">
+  <title>Energy Predictor</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+<body>
+  <div class="relative flex size-full min-h-screen flex-col bg-[#131b20] dark group/design-root overflow-x-hidden"
+       style="--checkbox-tick-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(255,255,255)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z%27/%3e%3c/svg%3e'); font-family: 'Space Grotesk', 'Noto Sans', sans-serif;">
+    <div class="layout-container flex h-full grow flex-col">
+      <header class="flex items-center justify-between border-b border-solid border-b-[#283843] px-10 py-3 text-white">
+        <div class="flex items-center gap-4">
+          <div class="size-4">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 42.4379C4 42.4379 14.0962 36.0744 24 41.1692C35.0664 46.8624 44 42.2078 44 42.2078L44 7.01134C44 7.01134 35.068 11.6577 24.0031 5.96913C14.0971 0.876274 4 7.27094 4 7.27094L4 42.4379Z"
+                    fill="currentColor"></path>
+            </svg>
+          </div>
+          <h2 class="text-lg font-bold">Energy Predictor</h2>
+        </div>
+        <div class="flex flex-1 justify-end gap-8">
+          <div class="flex items-center gap-9">
+            <a class="text-sm font-medium" href="/home">Home</a>
+            <a class="text-sm font-medium" href="/about">About</a>
+            <a class="text-sm font-medium" href="/contact">Contact</a>
+      </header>
+
+      <div class="px-40 flex flex-1 justify-center py-5">
+        <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+          <div class="flex min-h-[480px] flex-col items-center justify-center bg-cover bg-center bg-no-repeat p-4"
+               style='background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDh0w1JpTJg-6unOghlw0aKyg1U_eNbILbAM0FryJF7nm5E3QJQaTfxYY8bGPlVxo8ai-NmCOaaaG1c5SU3ryiUGqxrxDBFoQkmxvpAcxiV_IDgi-yavB9jY7hTYn-Axk3zgujhOL9J3ZCaqIJ1SGTw1P8udRsQJQhtuC7J4dKZ384Xi6W_SsJPLLVXB17M4Q1sETJbC3de0a2jcjPcPhpvWu-rzLaiUaGwtmnJpI3_sDekQjT5_MSdvLJJ-cAy9u7EwnVS-xOP82Iz");'>
+            <div class="text-center">
+              <h1 class="text-white text-4xl font-black">Predict Your Home's Energy Consumption</h1>
+              <h2 class="text-white text-sm">Input your home's details and get an accurate prediction.</h2>
+            </div>
+            <div class="flex gap-3 mt-4">
+              <a href="https://app.powerbi.com/groups/me/reports/595e4b02-9e99-4ea5-98c3-bc449cba6764/3ae9a9cd6064b970135d?redirectedFromSignup=1&experience=power-bi"
+   target="_blank" rel="noopener noreferrer"
+   class="h-10 px-4 bg-[#283843] text-white font-bold rounded-full inline-flex items-center justify-center">
+  Data Insights
+</a>
+            </div>
+          </div>
+
+          <h2 class="text-white text-[22px] font-bold px-4 pb-3 pt-5">Input Features</h2>
+
+          <form method="POST" action="/home">
+            {% for label, name, type, placeholder, step in [
+              ("House Age (1-49)", "house_age", "number", "Enter house age", "1"),
+              ("Number of Occupants (1-6)", "num_occupants", "number", "Enter number of occupants", "1"),
+              ("Temperature (°C)", "temperature", "number", "Enter temperature", "any"),
+              ("Humidity (%)", "humidity", "number", "Enter humidity", "any")
+            ] %}
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-white pb-2">{{ label }}</p>
+                <input name="{{ name }}" type="{{ type }}" step="{{ step }}" placeholder="{{ placeholder }}"
+                       class="form-input h-14 rounded-xl text-white border border-[#395060] bg-[#1d2830] p-[15px]" required/>
+              </label>
+            </div>
+            {% endfor %}
+
+            <!-- Appliance Usage -->
+            <div class="flex max-w-[480px] flex-wrap gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-white pb-2">Appliance Usage (kWh)</p>
+                <input name="appliance_usage" type="number" step="any" placeholder="Enter appliance usage"
+                       class="form-input h-14 rounded-xl text-white border border-[#395060] bg-[#1d2830] p-[15px]" required/>
+                <small class="text-sm text-[#99b1c2] mt-1">
+                  Typical daily appliance usage is ~2.5 kWh. Include fridge, TV, washing machine, etc.
+                </small>
+              </label>
+            </div>
+
+            <!-- AC Usage -->
+            <div class="flex max-w-[480px] flex-wrap gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-white pb-2">AC Usage (kWh)</p>
+                <input name="ac_usage" type="number" step="any" placeholder="Enter AC usage"
+                       class="form-input h-14 rounded-xl text-white border border-[#395060] bg-[#1d2830] p-[15px]" required/>
+                <small class="text-sm text-[#99b1c2] mt-1">
+                  A 1-ton AC uses ~1 kWh/hour. Estimate based on hours used. E.g., 2 hours ≈ 2 kWh.
+                </small>
+              </label>
+            </div>
+
+            <!-- Heater Usage -->
+            <div class="flex max-w-[480px] flex-wrap gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-white pb-2">Heater Usage (kWh)</p>
+                <input name="heater_usage" type="number" step="any" placeholder="Enter heater usage"
+                       class="form-input h-14 rounded-xl text-white border border-[#395060] bg-[#1d2830] p-[15px]" required/>
+                <small class="text-sm text-[#99b1c2] mt-1">
+                  Heaters typically use 1–2 kWh/hour. Multiply usage hours to estimate. Enter 0 if not used.
+                </small>
+              </label>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-white pb-2">Day of Week</p>
+                <select name="day_of_week" class="form-input h-14 rounded-xl text-white border border-[#395060] bg-[#1d2830] p-[15px]" required>
+                  {% for i in range(7) %}
+                  <option value="{{ i }}">{{ i }}</option>
+                  {% endfor %}
+                </select>
+              </label>
+            </div>
+
+            <div class="px-4">
+              <input type="hidden" name="is_holiday" value="0">
+              <label class="flex gap-x-3 py-3 flex-row">
+                <input type="checkbox" name="is_holiday" value="1" class="h-5 w-5 border-[#395060] text-[#318fcd]" />
+                <p class="text-white">Is Holiday</p>
+              </label>
+            </div>
+
+            <div class="px-4">
+              <input type="hidden" name="window_open" value="0">
+              <label class="flex gap-x-3 py-3 flex-row">
+                <input type="checkbox" name="window_open" value="1" class="h-5 w-5 border-[#395060] text-[#318fcd]" />
+                <p class="text-white">Window Open</p>
+              </label>
+            </div>
+
+            <div class="flex max-w-[480px] flex-wrap gap-4 px-4 py-3">
+              <label class="flex flex-col min-w-40 flex-1">
+                <p class="text-white pb-2">Hour of Day</p>
+                <select name="hour" required class="form-input h-14 rounded-xl text-white border border-[#395060] bg-[#1d2830] p-[15px]">
+                  {% for i in range(24) %}
+                  <option value="{{ i }}">{{ i }}</option>
+                  {% endfor %}
+                </select>
+              </label>
+            </div>
+
+            <div class="flex px-4 py-3 justify-center">
+              <button type="submit" class="h-12 px-5 bg-[#318fcd] text-white font-bold rounded-full">
+                Predict Energy Consumption
+              </button>
+            </div>
+          </form>
+          <h2 class="text-white text-[22px] font-bold px-4 pb-3 pt-5">Predicted Energy Consumption</h2>
+          <div id="prediction-results" class="flex flex-wrap gap-4 p-4">
+            <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 border border-[#395060]">
+              <p class="text-white">Total Energy Consumption (kWh)</p>
+              <p class="text-white text-2xl font-bold">
+                {{ prediction if prediction else '---' }}
+              </p>
+              {% if prediction %}
+  {% if percentage_increase %}
+    <p class="text-[#ff7f50] font-semibold">
+      ⚡ +{{ percentage_increase }}% above normal (6 kWh threshold)
+    </p>
+  {% else %}
+    <p class="text-[#0bda5b] font-semibold">
+      Within optimal range
+    </p>
+  {% endif %}
+{% else %}
+  <p class="text-[#99b1c2]">-</p>
+{% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Energy Consumption Breakdown</h2>
+<div class="flex flex-wrap gap-4 px-4 pb-10">
+  <div class="flex min-w-72 flex-1 flex-col gap-4 rounded-xl border border-[#395060] p-6">
+    <div class="flex items-center justify-between">
+      <p class="text-white text-base font-medium leading-normal">Usage (kWh)</p>
+    </div>
+
+    <!-- Total Predicted Energy -->
+    <p class="text-white tracking-light text-[32px] font-bold leading-tight truncate">
+      {{ prediction }} kWh
+    </p>
+
+    <!-- Breakdown Bar Chart -->
+    <div class="grid min-h-[180px] grid-flow-col gap-6 grid-rows-[1fr_auto] items-end justify-items-center px-3">
+
+      <!-- Appliances -->
+      <div class="w-full bg-[#283843] border-t-2 border-[#99b1c2]"
+           style="height: {{ breakdown.appliance_pct if breakdown else 0 }}%;">
+      </div>
+      <p class="text-[#99b1c2] text-[13px] font-bold leading-normal tracking-[0.015em]">
+        Appliances
+      </p>
+
+      <!-- AC -->
+      <div class="w-full bg-[#283843] border-t-2 border-[#99b1c2]"
+           style="height: {{ breakdown.ac_pct if breakdown else 0 }}%;">
+      </div>
+      <p class="text-[#99b1c2] text-[13px] font-bold leading-normal tracking-[0.015em]">
+        AC
+      </p>
+
+      <!-- Heater -->
+      <div class="w-full bg-[#283843] border-t-2 border-[#99b1c2]"
+           style="height: {{ breakdown.heater_pct if breakdown else 0 }}%;">
+      </div>
+      <p class="text-[#99b1c2] text-[13px] font-bold leading-normal tracking-[0.015em]">
+        Heater
+      </p>
+
+      <!-- Other -->
+      <div class="w-full bg-[#283843] border-t-2 border-[#99b1c2]"
+           style="height: {{ breakdown.other_pct if breakdown else 0 }}%;">
+      </div>
+      <p class="text-[#99b1c2] text-[13px] font-bold leading-normal tracking-[0.015em]">
+        Other
+      </p>
+
+    </div>
+  </div>
+</div>
+      <footer class="flex justify-center">
+  <div class="flex max-w-[960px] flex-1 flex-col">
+    <div class="flex flex-col gap-6 px-5 py-10 text-center">
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="https://www.linkedin.com/in/ujwal-v-c-2226622a9"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="flex items-center gap-2 text-[#99b1c2] hover:underline">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               viewBox="0 0 24 24"
+              fill="currentColor"
+               class="w-5 h-5 text-[#99b1c2]">
+            <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8.5 8h3.64v2.08h.05c.51-.96 1.75-1.97 3.6-1.97 3.85 0 4.56 2.53 4.56 5.82V24h-4v-7.9c0-1.88-.03-4.3-2.62-4.3-2.62 0-3.02 2.05-3.02 4.16V24h-4V8z"/>
+          </svg>
+          LinkedIn
+        </a>
+      </div>
+      <p class="text-[#99b1c2]">@2025 Energy Predictor. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+    </div>
+  </div>
+  <script>
+  window.addEventListener("DOMContentLoaded", function () {
+    const predicted = "{{ prediction | default('') }}";
+    if (predicted && predicted !== "---") {
+      const resultSection = document.getElementById("prediction-results");
+      if (resultSection) {
+        resultSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  });
+</script>
+</body>
+</html>
