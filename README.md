@@ -83,8 +83,6 @@ Visit `http://127.0.0.1:5000` in your browser to test the prediction app.
 
 ## 📈 Model Performance
 
-## 📈 Updated Model Performance
-
 | Model                      | R² Score | RMSE     | MAE      |
 |---------------------------|----------|----------|----------|
 | Linear Regression         | 0.951893 | 0.088766 | 0.237367 |
